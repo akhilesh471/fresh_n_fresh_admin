@@ -1,9 +1,13 @@
 
-import 'package:admin/constants/colors.dart';
-import 'package:admin/constants/size.dart';
-import 'package:admin/core/buttons.dart';
+import 'package:admin/application/add_category/category_bloc.dart';
+import 'package:admin/application/add_products/add_products_bloc.dart';
+import 'package:admin/core/colors.dart';
+import 'package:admin/core/size.dart';
+import 'package:admin/domain/add_products/models/add_product_model.dart';
 import 'package:admin/presentation/Navbar/sidebar.dart';
+import 'package:admin/presentation/add_products/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddProducts extends StatefulWidget {
   const AddProducts({Key? key}) : super(key: key);
@@ -13,14 +17,12 @@ class AddProducts extends StatefulWidget {
 }
 
 class _AddProductsState extends State<AddProducts> {
-  String dropdownvalue = 'Vegetables';
-  var items = [
-    'Vegetables',
-    'Fruits',
-    'Dairy',
-    'Meats',
-    'Item 5',
-  ];
+ 
+  String? selectedValue;
+  final _nameController = TextEditingController();
+  final _quantityContoller = TextEditingController();
+  final _priceContoller = TextEditingController();
+  final _descriptionContoller = TextEditingController();
   String dropdownvalue2 = 'Kilogram';
   var items2 = [
     'Kilogram',
@@ -28,15 +30,22 @@ class _AddProductsState extends State<AddProducts> {
     'Units',
   ];
 
+
   @override
   Widget build(BuildContext context) {
-    currentIndex=2;
+    
+    currentIndex = 2;
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       drawer: Sidebar(),
-      appBar: AppBar(title: Text('Add Products',style: TextStyle(letterSpacing: 2),),),
+      appBar: AppBar(
+        title: Text(
+          'Add Products',
+          style: TextStyle(letterSpacing: 2),
+        ),
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Container(
@@ -51,9 +60,11 @@ class _AddProductsState extends State<AddProducts> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
-                        Container(
-                          width: width * 0.3,
-                          child: Icon(Icons.add),
+                        GestureDetector(onTap: (){},
+                          child: SizedBox(
+                            width: width * 0.3,
+                            child: Icon(Icons.add),
+                          ),
                         ),
                         sizeW10,
                         addImage(width),
@@ -64,11 +75,44 @@ class _AddProductsState extends State<AddProducts> {
                 sizeH15,
                 productDetails('Category type:'),
                 sizeH10,
-                categoryDropDownList(height, width),
+                BlocBuilder<CategoryBloc, CategoryState>(
+                  builder: (context, state) {
+                    return Container(
+                      height: height * 0.06,
+                      width: width * 0.94,
+                      decoration: BoxDecoration(
+                          color: tabBarlightBlue,
+                          borderRadius: BorderRadius.circular(12)),
+                      child: DropdownButton(
+                        isExpanded: true,
+                        hint: const Center(
+                          child: Text('Select Category'),
+                        ),
+                        value: selectedValue,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: state.categoryList.map((items) {
+                          return DropdownMenuItem(
+                            value: items.name,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 26),
+                              child: Text(items.name),
+                            ),
+                          );
+                        }).toList(),
+                        onChanged: (newValue) {
+                          setState(() {
+                            selectedValue = newValue.toString();
+                          });
+                        },
+                      ),
+                    );
+                  },
+                ),
                 sizeH15,
                 productDetails('Product Name:'),
                 sizeH10,
-                textfield('Product name', width * 0.92, 1),
+                textfield('Product name', width * 0.92, 1, _nameController),
                 sizeH15,
                 Row(
                   children: [
@@ -82,11 +126,11 @@ class _AddProductsState extends State<AddProducts> {
                 sizeH10,
                 Row(
                   children: [
-                    textfield('Quantity', width * 0.42, 1),
+                    textfield('Quantity', width * 0.42, 1, _quantityContoller),
                     SizedBox(
                       width: width * 0.078,
                     ),
-                    textfield('Price ', width * 0.42, 1),
+                    textfield('Price ', width * 0.42, 1, _priceContoller),
                   ],
                 ),
                 sizeH15,
@@ -96,12 +140,35 @@ class _AddProductsState extends State<AddProducts> {
                 sizeH15,
                 productDetails('Descriptions :'),
                 sizeH10,
-                textfield('Add descriptionss', width * 0.92, 5),    sizeH10,
-             Row(mainAxisAlignment: MainAxisAlignment.end,
-               children: [
-                 mainButton('Post'),
-               ],
-             )
+                textfield('Add descriptionss', width * 0.92, 5,
+                    _descriptionContoller),
+                sizeH10,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        final model = Products(
+                            category: selectedValue!,
+                            name: _nameController.text,
+                            quantity: _quantityContoller.text.trim(),
+                            price: _priceContoller.text.trim(),
+                            units: dropdownvalue2,
+                            description: _descriptionContoller.text);
+                        context.read<AddProductsBloc>().add(AddProductsEvent.addProducts(model: model));
+                      },
+                      style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(17.0),
+                      ))),
+                      child: const Text(
+                        'Post',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
+                  ],
+                )
               ],
             ),
           ),
@@ -112,12 +179,7 @@ class _AddProductsState extends State<AddProducts> {
 
   Container addImage(double width) {
     return Container(
-      width: width * 0.3,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: NetworkImage(
-                  'https://www.gardeningknowhow.com/wp-content/uploads/2021/06/bitter-melon.jpg'),
-              fit: BoxFit.fill)),
+      
     );
   }
 
@@ -156,54 +218,5 @@ class _AddProductsState extends State<AddProducts> {
     );
   }
 
-  Widget textfield(String text, var width, int lines) {
-    return SizedBox(
-      width: width,
-      child: TextFormField(
-          maxLines: lines,
-          decoration: InputDecoration(
-            fillColor: Colors.white,
-            filled: true,
-            enabledBorder: OutlineInputBorder(
-                borderSide: new BorderSide(width: 2),
-                borderRadius: BorderRadius.circular(15)),
-            focusedBorder: OutlineInputBorder(
-                borderSide: new BorderSide(width: 1),
-                borderRadius: BorderRadius.circular(15)),
-            hintText: text,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-          )),
-    );
-  }
 
-  Container categoryDropDownList(double height, double width) {
-    return Container(
-      height: height * 0.06,
-      width: width * 0.94,
-      decoration: BoxDecoration(
-          color: tabBarlightBlue, borderRadius: BorderRadius.circular(12)),
-      child: DropdownButton(
-        isExpanded: true,
-        hint: Center(
-          child: Text('huhgv'),
-        ),
-        value: dropdownvalue,
-        icon: const Icon(Icons.keyboard_arrow_down),
-        items: items.map((String items) {
-          return DropdownMenuItem(
-            value: items,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 26),
-              child: Text(items),
-            ),
-          );
-        }).toList(),
-        onChanged: (String? newValue) {
-          setState(() {
-            dropdownvalue = newValue!;
-          });
-        },
-      ),
-    );
-  }
 }

@@ -1,4 +1,5 @@
-import 'package:admin/constants/colors.dart';
+
+import 'package:admin/core/colors.dart';
 import 'package:admin/presentation/Navbar/sidebar.dart';
 import 'package:admin/presentation/sell_requests/all_requests.dart';
 import 'package:admin/presentation/sell_requests/approved_requests.dart';

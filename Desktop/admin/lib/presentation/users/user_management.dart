@@ -1,4 +1,5 @@
-import 'package:admin/constants/colors.dart';
+
+import 'package:admin/core/colors.dart';
 import 'package:admin/presentation/Navbar/sidebar.dart';
 import 'package:admin/presentation/users/blocked_users.dart';
 import 'package:admin/presentation/users/users.dart';

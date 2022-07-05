@@ -1,5 +1,5 @@
 
-import 'package:admin/constants/size.dart';
+import 'package:admin/core/size.dart';
 import 'package:admin/core/buttons.dart';
 import 'package:flutter/material.dart';
 

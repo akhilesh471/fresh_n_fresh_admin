@@ -1,5 +1,6 @@
-import 'package:admin/constants/colors.dart';
-import 'package:admin/constants/size.dart';
+
+import 'package:admin/core/colors.dart';
+import 'package:admin/core/size.dart';
 import 'package:flutter/material.dart';
 
 class CollectedItems extends StatelessWidget {

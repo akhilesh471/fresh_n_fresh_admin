@@ -1,7 +1,8 @@
 
-import 'package:admin/constants/colors.dart';
-import 'package:admin/constants/size.dart';
+
 import 'package:admin/core/buttons.dart';
+import 'package:admin/core/colors.dart';
+import 'package:admin/core/size.dart';
 import 'package:admin/presentation/Navbar/sidebar.dart';
 import 'package:flutter/material.dart';
 
