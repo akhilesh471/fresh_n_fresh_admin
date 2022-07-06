@@ -1,4 +1,5 @@
 import 'package:admin/application/add_category/category_bloc.dart';
+import 'package:admin/application/add_products/add_products_bloc.dart';
 import 'package:admin/core/colors.dart';
 import 'package:admin/core/size.dart';
 import 'package:admin/domain/add_catagories/models/category_model.dart';
@@ -17,6 +18,8 @@ class AddCategory extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<CategoryBloc>(context)
           .add(const CategoryEvent.getCategoryList());
+      
+   
       currentIndex = 1;
     });
 

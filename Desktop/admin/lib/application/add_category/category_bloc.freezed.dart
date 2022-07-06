@@ -676,8 +676,8 @@ abstract class _DeleteCategoryList implements CategoryEvent {
 mixin _$CategoryState {
   bool get isLoading => throw _privateConstructorUsedError;
   List<Category> get categoryList => throw _privateConstructorUsedError;
-  Option<Either<MainFailure, List<Category>>>
-      get categoryFailureOrSuccessOption => throw _privateConstructorUsedError;
+  Option<Either<String, List<Category>>> get categoryFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CategoryStateCopyWith<CategoryState> get copyWith =>
@@ -692,8 +692,7 @@ abstract class $CategoryStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       List<Category> categoryList,
-      Option<Either<MainFailure, List<Category>>>
-          categoryFailureOrSuccessOption});
+      Option<Either<String, List<Category>>> categoryFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -723,7 +722,7 @@ class _$CategoryStateCopyWithImpl<$Res>
       categoryFailureOrSuccessOption: categoryFailureOrSuccessOption == freezed
           ? _value.categoryFailureOrSuccessOption
           : categoryFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailure, List<Category>>>,
+              as Option<Either<String, List<Category>>>,
     ));
   }
 }
@@ -738,8 +737,7 @@ abstract class _$$_CategoryListCopyWith<$Res>
   $Res call(
       {bool isLoading,
       List<Category> categoryList,
-      Option<Either<MainFailure, List<Category>>>
-          categoryFailureOrSuccessOption});
+      Option<Either<String, List<Category>>> categoryFailureOrSuccessOption});
 }
 
 /// @nodoc
@@ -771,7 +769,7 @@ class __$$_CategoryListCopyWithImpl<$Res>
       categoryFailureOrSuccessOption: categoryFailureOrSuccessOption == freezed
           ? _value.categoryFailureOrSuccessOption
           : categoryFailureOrSuccessOption // ignore: cast_nullable_to_non_nullable
-              as Option<Either<MainFailure, List<Category>>>,
+              as Option<Either<String, List<Category>>>,
     ));
   }
 }
@@ -795,8 +793,7 @@ class _$_CategoryList implements _CategoryList {
   }
 
   @override
-  final Option<Either<MainFailure, List<Category>>>
-      categoryFailureOrSuccessOption;
+  final Option<Either<String, List<Category>>> categoryFailureOrSuccessOption;
 
   @override
   String toString() {
@@ -833,7 +830,7 @@ abstract class _CategoryList implements CategoryState {
   const factory _CategoryList(
       {required final bool isLoading,
       required final List<Category> categoryList,
-      required final Option<Either<MainFailure, List<Category>>>
+      required final Option<Either<String, List<Category>>>
           categoryFailureOrSuccessOption}) = _$_CategoryList;
 
   @override
@@ -841,8 +838,8 @@ abstract class _CategoryList implements CategoryState {
   @override
   List<Category> get categoryList => throw _privateConstructorUsedError;
   @override
-  Option<Either<MainFailure, List<Category>>>
-      get categoryFailureOrSuccessOption => throw _privateConstructorUsedError;
+  Option<Either<String, List<Category>>> get categoryFailureOrSuccessOption =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryListCopyWith<_$_CategoryList> get copyWith =>

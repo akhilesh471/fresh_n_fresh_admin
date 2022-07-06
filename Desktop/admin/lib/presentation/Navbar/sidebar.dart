@@ -1,4 +1,5 @@
 import 'package:admin/presentation/addCategory/add_categories.dart';
+import 'package:admin/presentation/add_products/add_products_tab.dart';
 import 'package:admin/presentation/add_products/addproducts.dart';
 import 'package:admin/presentation/add_sell_items/view_sell_items.dart';
 import 'package:admin/presentation/orders/orders.dart';
@@ -59,7 +60,7 @@ class _SidebarState extends State<Sidebar> {
                      else if (index == 2) {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (ctx) {
-                        return const AddProducts();
+                        return const AddProductsTabbar();
                       }));
                     }
                      else if (index == 3) {

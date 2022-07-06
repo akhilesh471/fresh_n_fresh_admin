@@ -6,21 +6,19 @@ class Products {
   final String price;
   final String units;
   final String description;
-  final String? image;
+  final List<dynamic>? image;
 
-  Products(
-      {
-      required this.category,
-      required this.name,
-      required this.quantity,
-      required this.price,
-      required this.units,
-      required this.description,
-     this.image,this.id,});
+  Products({
+    required this.category,
+    required this.name,
+    required this.quantity,
+    required this.price,
+    required this.units,
+    required this.description,
+    this.image,
+    this.id,
+  });
 
-  //      static Category fromJson(Map<String, dynamic> json){
-  //   return Category(id: json['id'],name: json['name']);
-  // }
   Map<String, dynamic> toJson() {
     return {
       'id': id,
@@ -34,5 +32,15 @@ class Products {
     };
   }
 
-
+  static Products fromJson(Map<String, dynamic> json) {
+    return Products(
+        category: json['category'],
+        name: json['name'],
+        quantity: json['quantity'],
+        price: json['price'],
+        units: json['units'],
+        description: json['description'],
+        id: json['id'],
+        image: json['image']);
+  }
 }

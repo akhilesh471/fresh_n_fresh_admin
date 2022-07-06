@@ -1,6 +1,5 @@
 import 'package:admin/domain/add_catagories/i_add_category_repo.dart';
 import 'package:admin/domain/add_catagories/models/category_model.dart';
-import 'package:admin/domain/core/failures/main_failure.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
@@ -39,7 +38,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           categoryFailureOrSuccessOption: none(),
         ),
       );
-      final Either<MainFailure, List<Category>> categoryOptions =
+      final Either<String, List<Category>> categoryOptions =
           await _categoryRepo.getCategoryList();
       emit(
         categoryOptions.fold(

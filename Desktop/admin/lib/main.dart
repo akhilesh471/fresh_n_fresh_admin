@@ -8,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await Firebase.initializeApp();
+
   await configureInjection();
+   await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
           create: (context) => getIt<CategoryBloc>(),
         ),
         BlocProvider(
-          create: (context) => AddProductsBloc(),
+          create: (context) => getIt<AddProductsBloc>()
         ),
       ],
       child: MaterialApp(
