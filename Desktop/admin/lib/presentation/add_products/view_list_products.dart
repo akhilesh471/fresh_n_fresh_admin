@@ -21,7 +21,7 @@ class ViewListProducts extends StatelessWidget {
                   onTap: (() {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (ctx) {
-                      return ViewProducts();
+                      return ViewProducts(num: index,);
                     }));
                   }),
                   shape: RoundedRectangleBorder(

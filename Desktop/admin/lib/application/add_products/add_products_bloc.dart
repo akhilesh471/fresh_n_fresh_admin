@@ -12,7 +12,6 @@ import 'package:injectable/injectable.dart';
 
 part 'add_products_event.dart';
 part 'add_products_state.dart';
-part 'add_products_bloc.freezed.dart';
 
 @injectable
 class AddProductsBloc extends Bloc<AddProductsEvent, AddProductsState> {

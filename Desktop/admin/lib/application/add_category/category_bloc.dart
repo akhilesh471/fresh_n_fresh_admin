@@ -9,7 +9,6 @@ import 'package:injectable/injectable.dart';
 
 part 'category_event.dart';
 part 'category_state.dart';
-part 'category_bloc.freezed.dart';
 
 @injectable
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
